@@ -1,0 +1,12 @@
+table, th, td{
+    border: 1px solid black;
+    
+}
+th{
+    background-color: lightcoral;
+}
+
+tr{
+    text-align: center;
+    background-color: lightpink;
+}

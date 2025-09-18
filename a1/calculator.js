@@ -20,7 +20,12 @@ function operate(num1, num2, op){
         case '*':
             return num1 * num2
         case "/":
-            return num1 / num2
+            if (num2 != 0){
+                return num1 / num2
+            }
+            else{
+                return "Error: Division By Zero"
+            }
         case "%":
             return num1 % num2
         default:
@@ -30,12 +35,16 @@ function operate(num1, num2, op){
 }
 
 function getTotal(valid_results){
-    
+    total = 0
+    for (i = 0; i < valid_results.length; i++){
+        total +=valid_results[i]
+    }
+    return total
 }
 
 
 function getAvg(valid_results){
-    getTotal(valid_results)/valid_results.length
+    return getTotal(valid_results)/(valid_results.length)
 }
 
 while (true){
@@ -59,8 +68,8 @@ while (true){
     y.push(int2)
 }
 
-document.write('<table style="border: 2px solid black">')
-document.write('<tr style="text-align: center;"><th>Number 1</th><th>Operator</th><th>Number 2</th><th>Result</th></tr>');
+document.write('<table>')
+document.write('<tr><th>Number 1</th><th>Operator</th><th>Number 2</th><th>Result</th></tr>');
 
 while (i < x.length){
 
@@ -69,15 +78,27 @@ while (i < x.length){
     }
     else{
         result = operate(parseFloat(x[i]),parseFloat(y[i]),ops[i])
-        valid_results.push(result)
+        if (!isNaN(result)){
+            valid_results.push(result)
+        }
     }
     all_results.push(result)
-    document.write("<tr><td>" + x[i] + "</td><td>" + ops[i] + "</td><td>" + y[i] + "</td><td>" + all_results[i] + "</td></tr>");
+    document.write('<tr><td>' + x[i] + "</td><td>" + ops[i] + "</td><td>" + y[i] + "</td><td>" + all_results[i] + "</td></tr>");
     i++
 }
+document.write('</table>')
 
-document.write("<tr><th>Minimum</th><th>Maximum</th><th>Average</th><th>Total</th></tr>");
-document.write("<tr><td>" + Math.min(valid_results) + "</td><td>" + Math.max(valid_results) + "</td><td>" + getAvg(valid_results)+ "</td><td>" + getTotal(valid_results) + "</td></tr>");
+
+document.write('<table>')
+document.write('<tr><th>Minimum</th><th>Maximum</th><th>Average</th><th>Total</th></tr>');
+if (valid_results.length == 0){
+    document.write('<tr><td>None</td><td>None</td><td>None</td><td>None</td></tr>');
+}
+else{
+    document.write('<tr><td>' + Math.min(...valid_results) + "</td><td>" + Math.max(...valid_results) + "</td><td>" + getAvg(valid_results)+ "</td><td>" + getTotal(valid_results) + "</td></tr>");
+}
+document.write('</table>')
+
 
 
 
